@@ -191,29 +191,32 @@ static void MessageFunction(void *event_data) {
     // TODO: ver enunciado
  
 
-    p_info_machine = extract_info( topic_2);
+    p_info_machine = extract_info( topic_2);	// Obtener los topicos 
     strcpy(machine_info, p_info_machine);
 
 
     //num_machines_generating_notifications = 1;
     //machines_generating_notifications[0]= student_machine;
 	
-	if ((!strcmp(machine_info,"progress"))){
-		if (strcmp(data_info,"normal")){
-			if ((find_machine_index(machine_name,num_machines_generating_notifications))==-1){
+	if ((!strcmp(machine_info,"progress"))){		//indica que es igual al topico progress
+	
+		if (strcmp(data_info,"normal")){			//cuando no sea valor normal 
+		
+			if ((find_machine_index(machine_name,num_machines_generating_notifications))==-1){		// -1 indica que no esta el indice
 
 				strcpy(machines_generating_notifications[num_machines_generating_notifications].machine_name,machine_name);
 				strcpy(machines_generating_notifications[num_machines_generating_notifications].process,data_info);
-				if(!strcmp(data_info,"delay")){
+				if(!strcmp(data_info,"delayed")){		// si es igual a delayed cambio a bad 
 					strcpy(machines_generating_notifications[num_machines_generating_notifications].notification,"bad");
-				}else{
+				}else{									// si es igual a completed cambio a good 
 					strcpy(machines_generating_notifications[num_machines_generating_notifications].notification,"good");
 				}
 				num_machines_generating_notifications++;
 			}
 		}
-	}else if ((!strcmp(machine_info,"worker_assignment"))){
-		if ((find_machine_index(machine_name,num_machines_generating_notifications))!=-1){
+	}else if ((!strcmp(machine_info,"worker_assignment"))){ //indica que es igual al topico worker_assignment
+		if ((find_machine_index(machine_name,num_machines_generating_notifications))!=-1){	// si esta la maquina en el array
+			//se ecuentra el indice y se le asigna el worker_assignment
 			strcpy(machines_generating_notifications[find_machine_index(machine_name,num_machines_generating_notifications)].worker_assignment,data_info);
 		}
 		
@@ -254,7 +257,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     int current_status;
     int work_assign;
 	int work_er_assign;
-	int process;
+	int progress;
     char *root_topic = "LSE/miriam.ortega.bustos@alumnos.upm.es/workers/mv.guarachi@alumnos.upm.es/worker_performance";
 
 
@@ -281,8 +284,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 */
 
 
-		process = esp_mqtt_client_subscribe(client, "LSE/machines/+/process", 0);
-        ESP_LOGI(TAG, "sent subscribe successful, process=%d", process);
+		progress = esp_mqtt_client_subscribe(client, "LSE/machines/+/progress", 0);
+        ESP_LOGI(TAG, "sent subscribe successful, progress=%d", progress);
 
 		work_er_assign = esp_mqtt_client_subscribe(client, "LSE/machines/+/worker_assignment", 0);
         ESP_LOGI(TAG, "sent subscribe successful, work_er_assign=%d", work_er_assign);

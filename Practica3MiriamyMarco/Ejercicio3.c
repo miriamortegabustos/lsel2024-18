@@ -222,15 +222,6 @@ static void MessageFunction(void *event_data) {
 	
     print_machine(student_machine);
 
-
-/*    
-    strcpy(student_machine.IP_address , event->data);
-    strcpy(student_machine.current_status , event->data);
-    strcpy(student_machine.work_assignment , event->data);
-
-    print_machine(student_machine);
-*/
-
     // TODO: ver enunciado
 }
 // FFM
@@ -296,14 +287,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 		work_er_assign = esp_mqtt_client_subscribe(client, "LSE/machines/+/worker_assignment", 0);
         ESP_LOGI(TAG, "sent subscribe successful, work_er_assign=%d", work_er_assign);
 
-    /*msg_id = esp_mqtt_client_unsubscribe(client, "/topic/qos1");
 
-       msg_id_2 = esp_mqtt_client_subscribe(client, "/LSE/machines/18670/#", 1);
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id_2);
-
-        ESP_LOGI(TAG, "sent unsubscribe successful, msg_id=%d", msg_id);
-
-*/
 
         // TO DO: Subscribe to the topics
         break;

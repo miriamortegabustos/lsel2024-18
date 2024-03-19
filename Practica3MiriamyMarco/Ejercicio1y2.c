@@ -195,7 +195,7 @@ static void MessageFunction(void *event_data) {
     strcpy(machine_info, p_info_machine);
 
 
-    if (!strcmp(machine_info,"IP_Address")){
+    if (!strcmp(machine_info,"IP_address")){
 
         strcpy(student_machine.IP_address , data_info);   
     }
@@ -213,17 +213,11 @@ static void MessageFunction(void *event_data) {
     //machines_generating_notifications[0]= student_machine;
     print_machine(student_machine);
 
-
+	//Ejecicio 2.- Publicar el estado running
     msg_id = esp_mqtt_client_publish( mqtt_client , "LSE/machines/machine18/current_status", "running", 0, 0, 0);
-        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+    ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-/*    
-    strcpy(student_machine.IP_address , event->data);
-    strcpy(student_machine.current_status , event->data);
-    strcpy(student_machine.work_assignment , event->data);
 
-    print_machine(student_machine);
-*/
 
     // TODO: ver enunciado
 }
@@ -265,13 +259,13 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
         
         // TO DO: Subscribe to the topics
-
+		// Ejecicio 1 .- Obtener la maquina del alumno
         msg_id = esp_mqtt_client_subscribe(client, "LSE/machines/machine18/#", 0);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
 
-       
+		//Ejercicio 1 .- Obtener valores de IP, estado actual y trabajo asignado 
 /*
-        ip_machine = esp_mqtt_client_subscribe(client, "LSE/machines/machine18/IP_Address", 0);
+        ip_machine = esp_mqtt_client_subscribe(client, "LSE/machines/machine18/IP_address", 0);
         ESP_LOGI(TAG, "sent subscribe successful, ip_machine=%d", ip_machine);
 
         current_status = esp_mqtt_client_subscribe(client, "LSE/machines/machine18/current_status", 0);
@@ -282,16 +276,6 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 */
 
 
-
-
-    /*msg_id = esp_mqtt_client_unsubscribe(client, "/topic/qos1");
-
-       msg_id_2 = esp_mqtt_client_subscribe(client, "/LSE/machines/18670/#", 1);
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id_2);
-
-        ESP_LOGI(TAG, "sent unsubscribe successful, msg_id=%d", msg_id);
-
-*/
 
         // TO DO: Subscribe to the topics
         break;

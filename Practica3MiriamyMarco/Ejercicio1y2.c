@@ -209,8 +209,7 @@ static void MessageFunction(void *event_data) {
     }else if (!strcmp(machine_info,"worker_assignment")){
         strcpy(student_machine.worker_assignment , data_info);
     }
-    //num_machines_generating_notifications = 1;
-    //machines_generating_notifications[0]= student_machine;
+
     print_machine(student_machine);
 
 	//Ejecicio 2.- Publicar el estado running

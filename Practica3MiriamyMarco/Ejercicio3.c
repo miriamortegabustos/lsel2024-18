@@ -200,7 +200,7 @@ static void MessageFunction(void *event_data) {
 	
 	if ((!strcmp(machine_info,"progress"))){		//indica que es igual al topico progress
 	
-		if (strcmp(data_info,"normal")){			//cuando no sea valor normal 
+		if (strcmp(data_info,"normal")){			//cuando no sea el valor normal 
 		
 			if ((find_machine_index(machine_name,num_machines_generating_notifications))==-1){		// -1 indica que no esta el indice
 

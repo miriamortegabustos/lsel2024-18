@@ -6,6 +6,7 @@
 #include "fsm.h"
 #include "mock_test_fsm.h"
 
+
 #include <stdlib.h>
 
 /**
@@ -69,7 +70,15 @@ void test_fsm_new_nullWhenNullTransition(void)
  */
 void test_fsm_init_falseWhenNullFsm(void)
 {
-    TEST_IGNORE();
+    fsm_trans_t tt[] = {
+        {0, is_true, 1, do_nothing},
+        {-1, NULL, -1, NULL}
+    };
+    fsm_t *f = NULL;
+
+    bool return_value = fsm_init(f,tt);
+
+    TEST_ASSERT_EQUAL (false, return_value);
 }
 
 /**
@@ -78,7 +87,12 @@ void test_fsm_init_falseWhenNullFsm(void)
  */
 void test_fsm_init_falseWhenNullTransitions(void)
 {
-    TEST_IGNORE();
+    fsm_trans_t *tt = NULL;
+    fsm_t *f = (fsm_t*)1;
+
+    bool return_value = fsm_init(f,tt);
+
+    TEST_ASSERT_EQUAL (false, return_value);
 }
 
 /**
@@ -91,8 +105,7 @@ void test_fsm_nullWhenFirstOrigStateIsMinusOne (void) {
   fsm_t *f = (fsm_t*)1;
   f = fsm_new(tt);
  
-//TEST_ASSERT_EQUAL (XXX);
-  TEST_FAIL_MESSAGE("Implement the test");
+  TEST_ASSERT_EQUAL (NULL, f);
 }
 
 /**
@@ -100,8 +113,11 @@ void test_fsm_nullWhenFirstOrigStateIsMinusOne (void) {
  * 
  */
 void test_fsm_nullWhenFirstDstStateIsMinusOne (void) {
-  
-  TEST_IGNORE();
+  fsm_trans_t tt[] = {{1, is_true, -1, do_nothing}};
+  fsm_t *f = (fsm_t*)1;
+  f = fsm_new(tt);
+ 
+  TEST_ASSERT_EQUAL (NULL, f);
 }
 
 /**
@@ -110,11 +126,15 @@ void test_fsm_nullWhenFirstDstStateIsMinusOne (void) {
  */
 void test_fsm_nullWhenFirstCheckFunctionIsNull (void) {
   
-  TEST_IGNORE();
+  fsm_trans_t tt[] = {{0, NULL, 1, do_nothing}};
+  fsm_t *f = (fsm_t*)1;
+  f = fsm_new(tt);
+ 
+  TEST_ASSERT_EQUAL (NULL, f);
 }
 
 /**
- * @brief Devuelve puntero no NULL y llama a fsm_malloc (Stub) al crear la maquina de estados con una transición válida con función de actualización (salida) NULL o no NULL.
+ * @brief Devuelve puntero no NULL y llama a fsm_malloc (Stub) (Callback) al crear la maquina de estados con una transición válida con función de actualización (salida) NULL o no NULL.
  *        Hay que liberar la memoria al final llamando a free
  * 
  */
@@ -123,14 +143,17 @@ TEST_CASE(do_nothing)
 void test_fsm_new_nonNullWhenOneValidTransitionCondition(fsm_output_func_t out)
 {
     fsm_trans_t tt[] = {
-        //{},
+        {0, is_true, 1, out},
         {-1, NULL, -1, NULL}
     };
-     fsm_t *f = (fsm_t*)1;
+    fsm_t *f = (fsm_t*)1;
 
-     TEST_IGNORE();
+    f = fsm_new(tt);
 
-     free(f);
+    TEST_ASSERT_NOT_EQUAL (NULL, f);
+    //TEST_IGNORE();
+
+    free(f);
 }
 
 
@@ -140,7 +163,16 @@ void test_fsm_new_nonNullWhenOneValidTransitionCondition(fsm_output_func_t out)
  */
 void test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit(void)
 {
+    fsm_trans_t tt[] = {
+        {0, is_true, 1, do_nothing},
+        {-1, NULL, -1, NULL}
+    };
+    fsm_t *f = (fsm_t*)1;
 
+    //f = fsm_new(tt);
+    //int current_state = fsm_get_state(f);
+
+    //TEST_ASSERT_EQUAL (0, current_state);
     TEST_IGNORE();
 }
 

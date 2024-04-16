@@ -1,0 +1,84 @@
+---
+:source:
+  :path: test
+  :file: test_fsm_legacy.c
+:successes:
+- :test: test_fsm_new_nullWhenNullTransition
+  :line: 57
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_init_falseWhenNullFsm
+  :line: 70
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_init_falseWhenNullTransitions
+  :line: 86
+  :message: ''
+  :unity_test_time: 0
+- :test: 'test_fsm_nullWhenFirstOrigStateIsMinusOne '
+  :line: 103
+  :message: ''
+  :unity_test_time: 0
+- :test: 'test_fsm_nullWhenFirstDstStateIsMinusOne '
+  :line: 116
+  :message: ''
+  :unity_test_time: 0
+- :test: 'test_fsm_nullWhenFirstCheckFunctionIsNull '
+  :line: 130
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL)
+  :line: 147
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(do_nothing)
+  :line: 147
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit
+  :line: 174
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame
+  :line: 195
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire
+  :line: 218
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(false,
+    0)
+  :line: 259
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(true,
+    1)
+  :line: 259
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_new_nullWhenFsmMallocReturnsNull
+  :line: 285
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_destroy_callsFsmFree
+  :line: 306
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer
+  :line: 349
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores:
+- :test: test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1
+  :line: 342
+  :message: ''
+  :unity_test_time: 0
+:counts:
+  :total: 17
+  :passed: 16
+  :failed: 0
+  :ignored: 1
+:stdout: []
+:time: 0.00178105803206563

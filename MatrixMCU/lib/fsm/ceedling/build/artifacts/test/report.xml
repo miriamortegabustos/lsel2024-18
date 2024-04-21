@@ -48,17 +48,16 @@
 			<Name>test/test_fsm_legacy.c::test_fsm_destroy_callsFsmFree</Name>
 		</Test>
 		<Test id="16">
+			<Name>test/test_fsm_legacy.c::test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1</Name>
+		</Test>
+		<Test id="17">
 			<Name>test/test_fsm_legacy.c::test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer</Name>
 		</Test>
 	</SuccessfulTests>
-	<IgnoredTests>
-		<Test id="17">
-			<Name>test/test_fsm_legacy.c::test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1</Name>
-		</Test>
-	</IgnoredTests>
+	<IgnoredTests/>
 	<Statistics>
 		<Tests>17</Tests>
-		<Ignores>1</Ignores>
+		<Ignores>0</Ignores>
 		<FailuresTotal>0</FailuresTotal>
 		<Errors>0</Errors>
 		<Failures>0</Failures>

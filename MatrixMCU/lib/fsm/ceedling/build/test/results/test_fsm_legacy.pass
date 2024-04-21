@@ -8,77 +8,77 @@
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_init_falseWhenNullFsm
-  :line: 70
+  :line: 75
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_init_falseWhenNullTransitions
-  :line: 86
+  :line: 93
   :message: ''
   :unity_test_time: 0
 - :test: 'test_fsm_nullWhenFirstOrigStateIsMinusOne '
-  :line: 103
+  :line: 109
   :message: ''
   :unity_test_time: 0
 - :test: 'test_fsm_nullWhenFirstDstStateIsMinusOne '
-  :line: 116
+  :line: 123
   :message: ''
   :unity_test_time: 0
 - :test: 'test_fsm_nullWhenFirstCheckFunctionIsNull '
-  :line: 130
+  :line: 139
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL)
-  :line: 147
+  :line: 158
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(do_nothing)
-  :line: 147
+  :line: 158
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit
-  :line: 174
+  :line: 179
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame
-  :line: 195
+  :line: 198
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire
-  :line: 218
+  :line: 219
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(false,
     0)
-  :line: 259
+  :line: 243
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(true,
     1)
-  :line: 259
+  :line: 243
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_nullWhenFsmMallocReturnsNull
-  :line: 285
+  :line: 263
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_destroy_callsFsmFree
-  :line: 306
+  :line: 283
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1
+  :line: 303
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer
-  :line: 349
+  :line: 328
   :message: ''
   :unity_test_time: 0
 :failures: []
-:ignores:
-- :test: test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1
-  :line: 342
-  :message: ''
-  :unity_test_time: 0
+:ignores: []
 :counts:
   :total: 17
-  :passed: 16
+  :passed: 17
   :failed: 0
-  :ignored: 1
+  :ignored: 0
 :stdout: []
-:time: 0.00178105803206563
+:time: 0.0009521379997750046

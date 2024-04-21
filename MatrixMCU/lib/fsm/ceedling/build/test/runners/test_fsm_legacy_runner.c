@@ -113,22 +113,22 @@ int main(void)
 {
   UnityBegin("test_fsm_legacy.c");
   run_test(test_fsm_new_nullWhenNullTransition, "test_fsm_new_nullWhenNullTransition", 57);
-  run_test(test_fsm_init_falseWhenNullFsm, "test_fsm_init_falseWhenNullFsm", 70);
-  run_test(test_fsm_init_falseWhenNullTransitions, "test_fsm_init_falseWhenNullTransitions", 86);
-  run_test(test_fsm_nullWhenFirstOrigStateIsMinusOne , "test_fsm_nullWhenFirstOrigStateIsMinusOne ", 103);
-  run_test(test_fsm_nullWhenFirstDstStateIsMinusOne , "test_fsm_nullWhenFirstDstStateIsMinusOne ", 116);
-  run_test(test_fsm_nullWhenFirstCheckFunctionIsNull , "test_fsm_nullWhenFirstCheckFunctionIsNull ", 130);
-  run_test(runner_args1_test_fsm_new_nonNullWhenOneValidTransitionCondition, "test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL)", 147);
-  run_test(runner_args2_test_fsm_new_nonNullWhenOneValidTransitionCondition, "test_fsm_new_nonNullWhenOneValidTransitionCondition(do_nothing)", 147);
-  run_test(test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit, "test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit", 174);
-  run_test(test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame, "test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame", 195);
-  run_test(test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire, "test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire", 218);
-  run_test(runner_args1_test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition, "test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(false, 0)", 259);
-  run_test(runner_args2_test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition, "test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(true, 1)", 259);
-  run_test(test_fsm_new_nullWhenFsmMallocReturnsNull, "test_fsm_new_nullWhenFsmMallocReturnsNull", 285);
-  run_test(test_fsm_destroy_callsFsmFree, "test_fsm_destroy_callsFsmFree", 306);
-  run_test(test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1, "test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1", 329);
-  run_test(test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer, "test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer", 349);
+  run_test(test_fsm_init_falseWhenNullFsm, "test_fsm_init_falseWhenNullFsm", 75);
+  run_test(test_fsm_init_falseWhenNullTransitions, "test_fsm_init_falseWhenNullTransitions", 93);
+  run_test(test_fsm_nullWhenFirstOrigStateIsMinusOne , "test_fsm_nullWhenFirstOrigStateIsMinusOne ", 109);
+  run_test(test_fsm_nullWhenFirstDstStateIsMinusOne , "test_fsm_nullWhenFirstDstStateIsMinusOne ", 123);
+  run_test(test_fsm_nullWhenFirstCheckFunctionIsNull , "test_fsm_nullWhenFirstCheckFunctionIsNull ", 139);
+  run_test(runner_args1_test_fsm_new_nonNullWhenOneValidTransitionCondition, "test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL)", 158);
+  run_test(runner_args2_test_fsm_new_nonNullWhenOneValidTransitionCondition, "test_fsm_new_nonNullWhenOneValidTransitionCondition(do_nothing)", 158);
+  run_test(test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit, "test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit", 179);
+  run_test(test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame, "test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame", 198);
+  run_test(test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire, "test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire", 219);
+  run_test(runner_args1_test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition, "test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(false, 0)", 243);
+  run_test(runner_args2_test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition, "test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(true, 1)", 243);
+  run_test(test_fsm_new_nullWhenFsmMallocReturnsNull, "test_fsm_new_nullWhenFsmMallocReturnsNull", 263);
+  run_test(test_fsm_destroy_callsFsmFree, "test_fsm_destroy_callsFsmFree", 283);
+  run_test(test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1, "test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1", 303);
+  run_test(test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer, "test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer", 328);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

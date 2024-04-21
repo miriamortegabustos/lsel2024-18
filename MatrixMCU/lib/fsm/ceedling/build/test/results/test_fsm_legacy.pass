@@ -7,78 +7,110 @@
   :line: 57
   :message: ''
   :unity_test_time: 0
-- :test: test_fsm_init_falseWhenNullFsm
+- :test: test_fsm_init_MinusOneWhenNullFsm
   :line: 75
   :message: ''
   :unity_test_time: 0
-- :test: test_fsm_init_falseWhenNullTransitions
+- :test: test_fsm_init_MinusOneWhenNullTransitions
   :line: 93
   :message: ''
   :unity_test_time: 0
+- :test: test_fsm_init_returnNumberOfTransitions
+  :line: 108
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_init_returnZeroIfNumberOfTransitionsOver128
+  :line: 127
+  :message: ''
+  :unity_test_time: 0
 - :test: 'test_fsm_nullWhenFirstOrigStateIsMinusOne '
-  :line: 109
+  :line: 172
   :message: ''
   :unity_test_time: 0
 - :test: 'test_fsm_nullWhenFirstDstStateIsMinusOne '
-  :line: 123
+  :line: 186
   :message: ''
   :unity_test_time: 0
-- :test: 'test_fsm_nullWhenFirstCheckFunctionIsNull '
-  :line: 139
+- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(is_true, NULL)
+  :line: 209
   :message: ''
   :unity_test_time: 0
-- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL)
-  :line: 158
+- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(is_true, do_nothing)
+  :line: 209
   :message: ''
   :unity_test_time: 0
-- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(do_nothing)
-  :line: 158
+- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL, NULL)
+  :line: 209
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL, do_nothing)
+  :line: 209
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit
-  :line: 179
+  :line: 229
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame
-  :line: 198
+  :line: 248
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_returnsMinusOneIfNotTranitionsForCurrentState
+  :line: 269
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_returnsZeroIfTranitionsExistButNoneAreTrue
+  :line: 289
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_returnsOneIfTranition
+  :line: 309
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire
-  :line: 219
+  :line: 329
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(false,
     0)
-  :line: 243
+  :line: 353
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(true,
     1)
-  :line: 243
+  :line: 353
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_checkTransitionHappensIfInFunctionIsNull
+  :line: 372
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_nullWhenFsmMallocReturnsNull
-  :line: 263
+  :line: 391
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_destroy_callsFsmFree
-  :line: 283
+  :line: 411
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_destroy_doesntCallsFsmFreeIfNull
+  :line: 431
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1
-  :line: 303
+  :line: 448
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer
-  :line: 328
+  :line: 473
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 17
-  :passed: 17
+  :total: 25
+  :passed: 25
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0009521379997750046
+:time: 0.0010947390001092572

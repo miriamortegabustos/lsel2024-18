@@ -8,6 +8,7 @@
 #ifndef FSM_H_
 #define FSM_H_
 
+#define FSM_MAX_TRANSITIONS 128
 /* Includes ------------------------------------------------------------------*/
 /* Standard C includes */
 #include <stdbool.h>
@@ -75,9 +76,9 @@ void fsm_destroy(fsm_t *p_fsm);
  *
  * @param p_fsm Pointer to the memory address where the new state machine is located
  * @param p_tt Pointer to the state machine transition table
- * @return bool Indicates if initialization was correct (true) or not (false)
+ * @return int Indicates number of transitions, -1 if failed.
  */
-bool fsm_init(fsm_t *p_fsm, fsm_trans_t *p_tt);
+int fsm_init(fsm_t *p_fsm, fsm_trans_t *p_tt);
 
 /**
  * @brief Get the current state of the state machine.
@@ -98,11 +99,12 @@ void fsm_set_state(fsm_t *p_fsm, int state);
 /**
  * @brief Check the full transition table.
  *
- * It loops through the transition table and, if an input condition is met, it switches to a new state and executes the corresponding output modification function.
+ * It loops through the transition table and, if an input condition is met or is null, it switches to a new state and executes the corresponding output modification function.
  *
  * @param p_fsm Pointer to the memory address where the new state machine is located
+ * @return int -1 if no transition for current state, 0 if transition exist but all false, 1 if transition happened
  */
-void fsm_fire(fsm_t *p_fsm);
+int fsm_fire(fsm_t *p_fsm);
 
 /**
  * @brief Port function to handle memory allocation. Default implementation with standard malloc

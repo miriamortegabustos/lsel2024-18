@@ -30,7 +30,7 @@ static bool fsm_check_transitions(fsm_trans_t *p_tt)
     {
         return false;
     }
-    if ((p_tt->orig_state == -1) || (p_tt->in == NULL) || (p_tt->dest_state == -1))
+    if ((p_tt->orig_state == -1) || (p_tt->dest_state == -1))
     {
         return false;
     }
@@ -57,19 +57,31 @@ fsm_t *fsm_new(fsm_trans_t *p_tt)
 
 void fsm_destroy(fsm_t *p_fsm)
 {
-    fsm_free(p_fsm);
+    if(p_fsm != NULL) 
+        fsm_free(p_fsm);
 }
 
-bool fsm_init(fsm_t *p_fsm, fsm_trans_t *p_tt)
+int fsm_init(fsm_t *p_fsm, fsm_trans_t *p_tt)
 {
     if (p_fsm == NULL) {
-        return false;
+        return -1;
     }
     if (!fsm_check_transitions(p_tt)) {
-        return false;
+        return -1;
     }
     fsm_init_no_check(p_fsm, p_tt);
-    return true;
+    // Count transitions
+    int transition_count = 0;
+    fsm_trans_t *p_t;
+    for (p_t = p_fsm->p_tt; p_t->orig_state >= 0; ++p_t)
+    {
+        transition_count++;
+    }
+    if (transition_count > FSM_MAX_TRANSITIONS) {
+        return 0;
+    } else {
+        return transition_count;
+    }
 }
 
 int fsm_get_state(fsm_t *p_fsm)
@@ -82,19 +94,24 @@ void fsm_set_state(fsm_t *p_fsm, int state)
     p_fsm->current_state = state;
 }
 
-void fsm_fire(fsm_t *p_fsm)
+int fsm_fire(fsm_t *p_fsm)
 {
     fsm_trans_t *p_t;
+    int8_t return_value = -1;  // Start without valid transition
+
     for (p_t = p_fsm->p_tt; p_t->orig_state >= 0; ++p_t)
     {
-        if ((p_fsm->current_state == p_t->orig_state) && p_t->in(p_fsm))
-        {
-            p_fsm->current_state = p_t->dest_state;
-            if (p_t->out)
-            {
-                p_t->out(p_fsm);
+        if ((p_fsm->current_state == p_t->orig_state)){
+            return_value = 0;
+            if ((p_t->in == NULL) || ((p_t->in != NULL) && (p_t->in(p_fsm)))) {
+                p_fsm->current_state = p_t->dest_state;
+                if (p_t->out)
+                {
+                    p_t->out(p_fsm);
+                }
+                return 1;
             }
-            break;
         }
     }
+    return return_value;
 }

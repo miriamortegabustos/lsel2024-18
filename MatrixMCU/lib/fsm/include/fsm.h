@@ -78,7 +78,7 @@ void fsm_destroy(fsm_t *p_fsm);
  * @param p_tt Pointer to the state machine transition table
  * @return int Indicates number of transitions, -1 if failed.
  */
-int fsm_init(fsm_t *p_fsm, fsm_trans_t *p_tt);
+bool fsm_init(fsm_t *p_fsm, fsm_trans_t *p_tt);
 
 /**
  * @brief Get the current state of the state machine.
@@ -104,7 +104,7 @@ void fsm_set_state(fsm_t *p_fsm, int state);
  * @param p_fsm Pointer to the memory address where the new state machine is located
  * @return int -1 if no transition for current state, 0 if transition exist but all false, 1 if transition happened
  */
-int fsm_fire(fsm_t *p_fsm);
+void fsm_fire(fsm_t *p_fsm);
 
 /**
  * @brief Port function to handle memory allocation. Default implementation with standard malloc

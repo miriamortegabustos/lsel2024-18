@@ -7,78 +7,106 @@
   :line: 56
   :message: ''
   :unity_test_time: 0
-- :test: test_fsm_init_falseWhenNullFsm
+- :test: test_fsm_init_ZeroWhenNullFsm
   :line: 69
   :message: ''
   :unity_test_time: 0
-- :test: test_fsm_init_falseWhenNullTransitions
+- :test: test_fsm_init_ZeroWhenNullTransitions
   :line: 85
   :message: ''
   :unity_test_time: 0
-- :test: 'test_fsm_nullWhenFirstOrigStateIsMinusOne '
+- :test: test_fsm_init_returnNumTransitionsValids
   :line: 102
   :message: ''
   :unity_test_time: 0
+- :test: test_fsm_init_returnZeroWith128tt
+  :line: 124
+  :message: ''
+  :unity_test_time: 0
+- :test: 'test_fsm_nullWhenFirstOrigStateIsMinusOne '
+  :line: 156
+  :message: ''
+  :unity_test_time: 0
 - :test: 'test_fsm_nullWhenFirstDstStateIsMinusOne '
-  :line: 115
+  :line: 169
   :message: ''
   :unity_test_time: 0
 - :test: 'test_fsm_nullWhenFirstCheckFunctionIsNull '
-  :line: 129
+  :line: 185
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(NULL)
-  :line: 146
+  :line: 206
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_nonNullWhenOneValidTransitionCondition(do_nothing)
-  :line: 146
+  :line: 206
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit
-  :line: 173
+  :line: 228
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSame
-  :line: 198
+  :line: 252
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire
-  :line: 222
+  :line: 272
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(false,
     0)
-  :line: 253
+  :line: 301
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(true,
     1)
-  :line: 253
+  :line: 301
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_isTrueReturnsNoneTrasition
+  :line: 324
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_isTrueReturnsZeroOrOne(false,0)
+  :line: 346
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_fire_isTrueReturnsZeroOrOne(true,1)
+  :line: 346
+  :message: ''
+  :unity_test_time: 0
+- :test: 'test_fsm_fireNULLIsTrue '
+  :line: 368
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_nullWhenFsmMallocReturnsNull
-  :line: 279
+  :line: 384
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_destroy_callsFsmFree
-  :line: 300
+  :line: 402
+  :message: ''
+  :unity_test_time: 0
+- :test: test_fsm_destroy_doesntCallsFsmFreeIfNull
+  :line: 415
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1
-  :line: 322
+  :line: 427
   :message: ''
   :unity_test_time: 0
 - :test: test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer
-  :line: 350
+  :line: 456
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 17
-  :passed: 17
+  :total: 24
+  :passed: 24
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0008637669998279307
+:time: 0.0012502659997153387

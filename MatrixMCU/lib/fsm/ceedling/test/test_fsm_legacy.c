@@ -63,34 +63,88 @@ void test_fsm_new_nullWhenNullTransition(void)
 }
 
 /**
- * @brief Comprueba que la función de inicialización devuelve false si el puntero a la maquina de estado es NULL 
+ * @brief Comprueba que la función de inicialización devuelve cero si el puntero a la maquina de estado es NULL 
  *
  */
-void test_fsm_init_falseWhenNullFsm(void)
+void test_fsm_init_ZeroWhenNullFsm(void)
 {
     fsm_trans_t tt[] = {{ 0, is_true, 1, do_nothing},
                         {-1, NULL, -1, NULL}};
-    bool res=true;
+    int res=1;
 
     res=fsm_init(NULL,tt);     // Maquina de estados NULL
 
-    TEST_ASSERT_EQUAL (false,res);
+    TEST_ASSERT_EQUAL (0,res);
 
 }
 
 /**
- * @brief Función de inicializacion devuelve false si la tabla de transiciones es nula
+ * @brief Función de inicializacion devuelve cero si la tabla de transiciones es nula
  * 
  */
-void test_fsm_init_falseWhenNullTransitions(void)
+void test_fsm_init_ZeroWhenNullTransitions(void)
 {
     fsm_t *f = (fsm_t*)1;
 
-    bool res=true;
+    int res=0;
 
     res=fsm_init(f,NULL);     //Tabla de transiciones es NULL
 
-    TEST_ASSERT_FALSE (res);
+    TEST_ASSERT_EQUAL (0,res);
+
+}
+
+
+/**
+ * @brief Comprueba el numero de transiciones validas de la tabla de transiciones 
+ * 
+ */
+void test_fsm_init_returnNumTransitionsValids(void) //New function
+{
+    fsm_trans_t tt[] = {            //hay 4 transciones 
+        {0, is_true, 1, NULL},
+        {1, is_true, 2, NULL},   
+        {2, is_true, 3, NULL},   
+        {3, is_true, 0, NULL},   
+        {-1, NULL, -1, NULL}
+    };
+
+    fsm_t f ;
+
+    int res = fsm_init(&f,tt);     
+
+    TEST_ASSERT_EQUAL (4,res);
+
+}
+
+/**
+ * @brief Comprueba que se deveulve 0 con mas de 128 transciones validas
+ * 
+ */
+void test_fsm_init_returnZeroWith128tt(void)    //New function
+{
+    fsm_trans_t tt[130];
+
+    for(int i=0; i<130;i++){
+        tt[i].orig_state = 0; 
+        tt[i].in = NULL; 
+        tt[i].dest_state = 1; 
+        tt[i].out = NULL; 
+        if(i>=129){
+            tt[i].orig_state = -1; 
+            tt[i].in = NULL; 
+            tt[i].dest_state = -1; 
+            tt[i].out = NULL;  
+        }
+    }
+
+    fsm_t f ;
+
+    int res=0;
+
+    res=fsm_init(&f,tt);     
+
+    TEST_ASSERT_EQUAL (0,res);
 
 }
 
@@ -100,11 +154,12 @@ void test_fsm_init_falseWhenNullTransitions(void)
 *        de la primera transición es -1 (fin de la tabla)
 */
 void test_fsm_nullWhenFirstOrigStateIsMinusOne (void) {
-  fsm_trans_t tt[] = {{-1, is_true, 1, do_nothing}};
-  fsm_t *f = (fsm_t*)1;
-  f = fsm_new(tt);
- 
-  TEST_ASSERT_EQUAL (NULL,f);
+    fsm_trans_t tt[] = {{-1, is_true, 1, do_nothing}};
+    fsm_t *f = (fsm_t*)1;
+    f = fsm_new(tt);
+
+    TEST_ASSERT_EQUAL (NULL,f);
+
 }
 
 /**
@@ -112,26 +167,34 @@ void test_fsm_nullWhenFirstOrigStateIsMinusOne (void) {
  * 
  */
 void test_fsm_nullWhenFirstDstStateIsMinusOne (void) {
-  fsm_trans_t tt[] = {{1, NULL, -1, NULL}};
+    fsm_trans_t tt[] = {{0, NULL, -1, NULL}};
 
-  fsm_t *f = (fsm_t*)1;
-  f = fsm_new(tt);
-
-  TEST_ASSERT_EQUAL (NULL,f );
-}
-
-/**
- * @brief La máquina de estados devuelve NULL y no llama a fsm_malloc si la función de comprobación de la primera transición es NULL (fin de la tabla)
- * 
- */
-void test_fsm_nullWhenFirstCheckFunctionIsNull (void) {
-    fsm_trans_t tt[] = {{0, NULL, 1, NULL},
-                        {-1, NULL , -1, NULL}};
     fsm_t *f = (fsm_t*)1;
     f = fsm_new(tt);
 
     TEST_ASSERT_EQUAL (NULL,f );
+
 }
+
+
+
+/**
+ * @brief La máquina de estados devuelve NULL y no llama a fsm_malloc si la función de comprobación de la primera transición es NULL (fin de la tabla)
+ *        En esta segunda version la guarda acepta NULL como true
+ */
+void test_fsm_nullWhenFirstCheckFunctionIsNull (void) {
+    fsm_trans_t tt[] = {{0, NULL, 1, NULL},
+                        {-1, NULL , -1, NULL}};
+
+    fsm_malloc_ExpectAnyArgsAndReturn(0);
+                     
+    fsm_t *f = (fsm_t*)1;
+    f = fsm_new(tt);
+
+    TEST_ASSERT_EQUAL (NULL,f );
+
+}
+
 
 /**
  * @brief Devuelve puntero no NULL y llama a fsm_malloc (CALLBACK) al crear la maquina de estados con una transición válida con función de actualización (salida) NULL o no NULL.
@@ -170,16 +233,16 @@ void test_fsm_new_fsmGetStateReturnsOrigStateOfFirstTransitionAfterInit(void)
     };
 
     fsm_t*  f ;
-    int res;
-    is_true_IgnoreAndReturn(false);
+   is_true_IgnoreAndReturn(false);
 
     fsm_malloc_Stub(cb_malloc); //equivalente al ignore con callback 
 
     f= fsm_new(tt);       //con el new
-    res = fsm_get_state(f);
+    
     //ignore me da igual si la llamas o no 
-    TEST_ASSERT_EQUAL_INT (0,res );
+    TEST_ASSERT_EQUAL_INT (0,fsm_get_state(f));
     free(f); 
+
 }
 
 /**
@@ -196,13 +259,10 @@ void test_fsm_fire_isTrueReturnsFalseMeansDoNothingIsNotCalledAndStateKeepsTheSa
     is_true_ExpectAnyArgsAndReturn(false);
     //do_nothing_Ignore();
     fsm_t f;
-    int res;
     fsm_init(&f, tt);
     fsm_fire(&f);
-    res = fsm_get_state(&f);
-    TEST_ASSERT_EQUAL_INT (0,res );
+    TEST_ASSERT_EQUAL_INT (0,fsm_get_state(&f) );
 
-   
 }
 
 /**
@@ -229,7 +289,7 @@ void test_fsm_fire_checkFunctionCalledWithFsmPointerFromFsmFire(void)
 
     res = fsm_get_state(&f);        // comprobar la transiscion 
     TEST_ASSERT_EQUAL_INT (1,res );
-
+  
 }
 
 /** 
@@ -240,25 +300,82 @@ TEST_CASE(false, 0)
 TEST_CASE(true, 1)
 void test_fsm_fire_checkFunctionIsCalledAndResultIsImportantForTransition(bool returnValue, int expectedState)
 {
-    // función de actualización de estado simulada que devuelve el valor proporcionado
-    //bool (*updateFunc)(void) = returnValue ? always_true : always_false;
-
+ 
     fsm_trans_t tt[] = {
         {0, is_true, 1, NULL},
         {-1, NULL, -1, NULL}
     };
     fsm_t f;
 
-      
     fsm_init(&f, tt);
 
     is_true_ExpectAnyArgsAndReturn(returnValue);
 
     fsm_fire(&f);
     TEST_ASSERT_EQUAL(expectedState, f.current_state);
-    //TEST_IGNORE();
+
 }
 
+
+/**
+ * @brief La maquina de estado devuelve -1 si no hay ninguna transicion para el estado actual
+ * 
+ */
+void test_fsm_fire_isTrueReturnsNoneTrasition(void)
+{
+    fsm_trans_t tt[] = {
+        {-1, NULL, -1, NULL}
+    };
+
+   
+    fsm_t f;
+    int res;
+    fsm_init(&f, tt);
+    res = fsm_fire(&f);
+    TEST_ASSERT_EQUAL_INT (-1,res );
+
+}
+
+
+/**
+ * @brief La maquina de estado devuelve 0 si la funcion de guarada devuelve false de lo contrario true y devuelve 1
+ * 
+ */
+TEST_CASE(false,0)
+TEST_CASE(true,1)
+void test_fsm_fire_isTrueReturnsZeroOrOne(bool returnValue, int expectedState  )
+{
+    fsm_trans_t tt[] = {
+        {0, is_true, 1, NULL},
+        {-1, NULL, -1, NULL}
+    };
+
+    is_true_ExpectAnyArgsAndReturn(returnValue);
+
+    fsm_t f;
+    int res;
+    fsm_init(&f, tt);
+    res = fsm_fire(&f);
+    TEST_ASSERT_EQUAL_INT (expectedState,res );
+
+}
+
+
+/**
+ * @brief  Este test prueba que la funcion de guarda es true con un NULL
+ *       
+ */
+void test_fsm_fireNULLIsTrue (void) {
+    fsm_trans_t tt[] = {{0, NULL, 1, NULL},
+                        {-1, NULL , -1, NULL}};
+                     
+    fsm_t f;
+    fsm_init(&f,tt);
+    fsm_fire(&f);
+
+    TEST_ASSERT_EQUAL (1,f.current_state);
+
+}
 
 /**
  * @brief La creación de una máquina de estados devuelve NULL si la reserva de memoria falla (Mock, no Stub)
@@ -271,8 +388,6 @@ void test_fsm_new_nullWhenFsmMallocReturnsNull(void)
         {1, is_true, 0, NULL},
         {-1, NULL, -1, NULL}
     };
-
-    //fsm_malloc_AddCallback(cb_malloc);
 
     fsm_malloc_ExpectAnyArgsAndReturn(NULL);
     
@@ -287,11 +402,21 @@ void test_fsm_new_nullWhenFsmMallocReturnsNull(void)
 void test_fsm_destroy_callsFsmFree(void)
 {
 
-    fsm_t *f = (fsm_t *)1;
+    fsm_t *f = (fsm_t *)0x1;
     fsm_free_Expect(f);
-
     fsm_destroy(f);
 
+}
+
+/**
+ * @brief Llamar a fsm_destroy NO provoca una llamada a fsm_free si f es NULL (Mock, no Stub)
+ * 
+ */
+void test_fsm_destroy_doesntCallsFsmFreeIfNull(void)
+{
+    fsm_t *f = NULL;
+    
+    fsm_destroy(f);
 }
 
 /**
@@ -302,12 +427,14 @@ void test_fsm_destroy_callsFsmFree(void)
 void test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1(void)
 {
     fsm_trans_t tt[] = {
-        {0, is_true, 1, NULL},
+        {0, is_true, 1, do_nothing},
         {1, is_true2, 0, NULL},   //Descomentar cuando se haya declarado una nueva función para mock is_true2
+
         {-1, NULL, -1, NULL}
     };
 
     is_true_ExpectAnyArgsAndReturn(true);
+    do_nothing_Ignore();
     is_true2_ExpectAnyArgsAndReturn(true);
 
     fsm_t f;
@@ -320,7 +447,6 @@ void test_fsm_fire_callsFirstIsTrueFromState0AndThenIsTrue2FromState1(void)
 
     TEST_ASSERT_EQUAL_INT (0,res );
 
-    //TEST_IGNORE();
 }
 
 /**
@@ -346,5 +472,3 @@ void test_fsm_new_calledTwiceWithSameValidDataCreatesDifferentInstancePointer(vo
     free(F1);
     free(F2);
 }
-
-

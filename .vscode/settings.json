@@ -1,0 +1,6 @@
+{
+    "cmake.sourceDirectory": "/home/marco/repo_git_v2/lsel2024-18/MatrixMCU/lib/fsm",
+    "files.associations": {
+        "snake_time.h": "c"
+    }
+}

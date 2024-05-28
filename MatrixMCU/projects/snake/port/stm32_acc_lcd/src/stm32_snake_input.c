@@ -3,8 +3,16 @@
 
 #include "stm32f4xx.h"
 
+#include "stm32_bsp.h"
+
+#include <stdlib.h>  // Para la función abs()
+
+
 static int button_flag;
 static int button_heading;
+
+ACCELERO_DrvTypeDef* acc;
+
 
 static void EXTILine0_Config(void)
 {
@@ -27,6 +35,7 @@ static void EXTILine0_Config(void)
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 }
 
+
 int
 snake_input_init(snake_game_t* p_game)
 {
@@ -36,6 +45,12 @@ snake_input_init(snake_game_t* p_game)
   /* TODO Clear flag */
   button_heading = UP;
   EXTILine0_Config();
+
+  //Acc
+  acc = bsp_get_accelero();
+  acc->Init(bsp_get_accelero_config()); //incializo el ACC
+  COMPASSACCELERO_IO_Init();
+
   return 1;
 }
 
@@ -66,27 +81,51 @@ snake_input_update_new_heading (snake_game_t* p_game)
     /* From RIGHT to UP */
     /* From UP to LEFT */
     /* TODO Check flag, clear and update new_heading and stm32 heading */
-    if (button_flag){
-      
-      switch (button_heading)
-      {
-      case LEFT:
-        p_game->new_heading = DOWN;
-        break;
-      case DOWN:
-        p_game->new_heading = RIGHT;
-        break;
-      case RIGHT:
-        p_game->new_heading = UP;
-        break;
-      case UP:
-        p_game->new_heading = LEFT;
 
-        break;  
-      }    
-      button_heading = p_game->new_heading;    
-        button_flag=0;
+
+    // if (button_flag){
+      
+    //   switch (button_heading)
+    //   {
+    //   case LEFT:
+    //     p_game->new_heading = DOWN;
+    //     break;
+    //   case DOWN:
+    //     p_game->new_heading = RIGHT;
+    //     break;
+    //   case RIGHT:
+    //     p_game->new_heading = UP;
+    //     break;
+    //   case UP:
+    //     p_game->new_heading = LEFT;
+
+    //     break;  
+    //   }    
+    //   button_heading = p_game->new_heading;    
+    //     button_flag=0;
+    // }
+
+    //ACCC
+    int16_t valoresXYZ [3];
+
+    LSM303DLHC_AccReadXYZ(valoresXYZ);
+
+    if (abs(valoresXYZ[0])>abs(valoresXYZ[1])){   //eje X
+        if (valoresXYZ[0]>0){
+            p_game->new_heading = RIGHT;
+        }else{
+            p_game->new_heading = LEFT;
+        }
+
+    }else{      //eje Y
+        if (valoresXYZ[1]>0){
+            p_game->new_heading = UP;
+        }else{
+            p_game->new_heading = DOWN;
+        }
     }
+
+
 }
 
 void

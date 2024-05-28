@@ -86,6 +86,27 @@
 			]
 		},
 		{
+			"label": "Build STM32F411E-DISCO-ACC-LCD",
+			"options": {
+				"cwd": "${workspaceRoot}"
+			},
+			"group": {
+				"kind": "build"
+			},
+			"linux": {
+				"command": "make"
+			},
+			"osx": {
+				"command": "make"
+			},
+			"windows": {
+				"command": "mingw32-make"
+			},
+			"args": [
+				"PLATFORM=stm32_acc_lcd"
+			]
+		},
+		{
 			"label": "Clean",
 			"command": "make",
 			"options": {
@@ -133,6 +154,14 @@
 			"dependsOn": [
 				"Clean",
 				"Build STM32F411E-DISCO"
+			],
+			"dependsOrder": "sequence"
+		}
+		,{
+			"label": "Clean & Re-Build STM32F411E-DISCO-ACC-LCD",
+			"dependsOn": [
+				"Clean",
+				"Build STM32F411E-DISCO-ACC-LCD"
 			],
 			"dependsOrder": "sequence"
 		}

@@ -98,7 +98,7 @@ COMPONENTS := $(DRIVERS)/components
 SOURCES += $(COMPONENTS)/lsm303dlhc/lsm303dlhc.c
 
 #Directorios con ficheros de cabecera (.h) para incluir
-INCLUDES += -I$(COMPONENTS)/common
+INCLUDES += -I$(COMPONENTS)/Common
 INCLUDES += -I$(COMPONENTS)/lsm303dlhc
 
 #######################################

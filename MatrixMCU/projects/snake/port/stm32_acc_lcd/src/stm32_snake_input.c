@@ -46,10 +46,10 @@ snake_input_init(snake_game_t* p_game)
   button_heading = UP;
   EXTILine0_Config();
 
-  //Acc
+  // Inicializacion del Acc y de I2C
   acc = bsp_get_accelero();
   acc->Init(bsp_get_accelero_config()); //incializo el ACC
-  COMPASSACCELERO_IO_Init();
+  //COMPASSACCELERO_IO_Init();
 
   return 1;
 }
@@ -105,7 +105,7 @@ snake_input_update_new_heading (snake_game_t* p_game)
     //     button_flag=0;
     // }
 
-    //ACCC
+    //ACC
     int16_t valoresXYZ [3];
 
     LSM303DLHC_AccReadXYZ(valoresXYZ);

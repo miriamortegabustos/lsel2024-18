@@ -52,6 +52,9 @@ void COMPASSACCELERO_IO_Init(void){
     stm32_i2c_init();
 }
 
+void COMPASSACCELERO_IO_ITConfig(void){
+    
+}
 
 void COMPASSACCELERO_IO_Write(uint16_t DeviceAddr, uint8_t RegisterAddr, uint8_t Value){
 

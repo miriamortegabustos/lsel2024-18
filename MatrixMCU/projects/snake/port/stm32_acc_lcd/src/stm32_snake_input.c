@@ -110,20 +110,23 @@ snake_input_update_new_heading (snake_game_t* p_game)
 
     LSM303DLHC_AccReadXYZ(valoresXYZ);
 
-    if (abs(valoresXYZ[0])>abs(valoresXYZ[1])){   //eje X
+    if ((abs(valoresXYZ[0])>abs(valoresXYZ[1]) )> abs(valoresXYZ[2]) ){   //eje X
         if (valoresXYZ[0]>0){
             p_game->new_heading = RIGHT;
         }else{
             p_game->new_heading = LEFT;
         }
 
-    }else{      //eje Y
+    }else if( (abs(valoresXYZ[0])<abs(valoresXYZ[1]) )> abs(valoresXYZ[2]) ){      //eje Y
         if (valoresXYZ[1]>0){
             p_game->new_heading = UP;
         }else{
             p_game->new_heading = DOWN;
         }
+    }else {             //Eje Z nada
+        p_game->new_heading = p_game->snake.heading;
     }
+
 
 
 }
